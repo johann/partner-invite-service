@@ -5,7 +5,8 @@ export const config = {
   port: process.env.PORT || 3000,
   supabase: {
     url: process.env.SUPABASE_URL,
-    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    anonKey: process.env.SUPABASE_SERVICE_ANON_KEY  
   },
   resend: {
     apiKey: process.env.RESEND_API_KEY,
