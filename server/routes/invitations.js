@@ -234,9 +234,9 @@ router.post('/', authenticateUser, async (req, res) => {
     const inviterName = inviterProfile?.name || inviterProfile?.email?.split('@')[0] || 'Someone';
     console.log('   - inviterName for email:', inviterName);
 
-    // Generate URLs
-    const acceptUrl = `${config.app.apiUrl}/invitations/accept/${token}`;
-    const declineUrl = `${config.app.apiUrl}/invitations/decline/${token}`;
+    // Generate URLs - need absolute URLs for email links
+    const acceptUrl = `${config.baseUrl}/api/invitations/accept/${token}`;
+    const declineUrl = `${config.baseUrl}/api/invitations/decline/${token}`;
     console.log('   - acceptUrl:', acceptUrl);
     console.log('   - declineUrl:', declineUrl);
 
@@ -330,7 +330,7 @@ router.get('/accept/:token', async (req, res) => {
       if (!inviteeProfile) {
         console.log('   - Invitee not found, redirecting to signup');
         // Redirect to signup with invitation token
-        return res.redirect(`${config.app.url}/signup?invitation=${token}&email=${encodeURIComponent(invitation.to_user_email)}`);
+        return res.redirect(`/signup?invitation=${token}&email=${encodeURIComponent(invitation.to_user_email)}`);
       }
 
       inviteeId = inviteeProfile.id;
@@ -372,7 +372,7 @@ router.get('/accept/:token', async (req, res) => {
     console.log('========================================');
 
     // Redirect to app
-    res.redirect(`${config.app.url}?partnership_accepted=true`);
+    res.redirect(`/?partnership_accepted=true`);
   } catch (error) {
     console.log('========================================');
     console.log('❌ [GET /invitations/accept/:token] REQUEST FAILED');

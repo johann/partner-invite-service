@@ -12,8 +12,10 @@ export const config = {
     apiKey: process.env.RESEND_API_KEY,
     fromEmail: process.env.FROM_EMAIL || 'invites@yourdomain.com'
   },
-  app: {
-    url: process.env.APP_URL,
-    apiUrl: process.env.API_URL
-  }
+  // Base URL for the application (used for email links which need absolute URLs)
+  // In production, set this to your domain (e.g., https://yourdomain.com)
+  // In development, defaults to localhost
+  baseUrl: process.env.BASE_URL || process.env.APP_URL || (process.env.NODE_ENV === 'production' 
+    ? 'https://yourdomain.com' 
+    : 'http://localhost:3000')
 };
